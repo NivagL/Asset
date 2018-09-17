@@ -13,6 +13,9 @@ export class asset {
     owner:string;
     equipmentId:string;
   
+    lat:number;
+    lon:number;
+    
     characteristics:characteristic[];
     notifications:notification[];
 }
