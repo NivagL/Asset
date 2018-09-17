@@ -1,0 +1,14 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let asset of assets" [expanded]="asset.equipmentId == selectedAsset">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{asset.label + " : " + asset.category}}
+      </mat-panel-title>
+      <mat-panel-description>
+        
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <astlib-asset [asset]="asset"></astlib-asset>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "assets-lib": {
+      "root": "projects/assets-lib",
+      "sourceRoot": "projects/assets-lib/src",
+      "projectType": "library",
+      "prefix": "astlib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/assets-lib/tsconfig.lib.json",
+            "project": "projects/assets-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/assets-lib/src/test.ts",
+            "tsConfig": "projects/assets-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/assets-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/assets-lib/tsconfig.lib.json",
+              "projects/assets-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "assets-lib-app"

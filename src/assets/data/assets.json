@@ -1,0 +1,32 @@
+[
+    {
+        "subNo":"C-1032",
+        "label":"C1032",
+        "category":"Ground Mounted Substation",
+        "gisId":"820680",
+        "address":"Richardson Road, 719",
+        "suburb":"Hillsborough",
+        "mtceZone":"White Swan",
+        "waspId":"GSUB207856",
+        "owner":"Vector",
+        "equipmentId":"2",
+       
+        "characteristics":[{"name":"char1"}, {"name":"char2"}],
+        "notifications":[{"name":"notify"}]
+    },
+    {
+        "subNo":"C-1032",
+        "label":"C1032:1:GM",
+        "category":"DST Transformer",
+        "gisId":"50009354",
+        "address":"Richardson Road, 719",
+        "suburb":"Hillsborough",
+        "mtceZone":"White Swan",
+        "waspId":"DSTX396122",
+        "owner":"Vector",
+        "equipmentId":"IE000000000013284145",
+
+        "characteristics":[{"name":"char1"}, {"name":"char2"}],
+        "notifications":[{"name":"notify"}]
+    }
+]
