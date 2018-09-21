@@ -5,10 +5,26 @@
         {{asset.label + " : " + asset.category}}
       </mat-panel-title>
       <mat-panel-description>
-        
+
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <astlib-asset [asset]="asset"></astlib-asset>
-  </mat-expansion-panel>
+    <div class="accordion-content">
+      <span class="asset-details">
+        <astlib-asset [asset]="asset"></astlib-asset>
+      </span>
+      <span class="asset-tab">
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="Properties">
+            <div class="example-small-box">
+              <astlib-asset-properties [asset]="asset"></astlib-asset-properties>
+            </div>
+          </mat-tab>
+          <mat-tab label="Notifications">
+            <astlib-asset-notifications [asset]="asset"></astlib-asset-notifications>            
+          </mat-tab>
+        </mat-tab-group>
+      </span>
+    </div>
+  </mat-expansion-panel> 
 </mat-accordion>
+<button mat-button (click)="createAsset()">Create</button>

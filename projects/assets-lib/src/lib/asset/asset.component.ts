@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AssetService } from '../_services/asset.service';
-import { asset } from '../_models/index';
+import { asset, assetTypeEnum } from '../_models/index';
 
 @Component({
   selector: 'astlib-asset',
@@ -19,5 +19,8 @@ export class AssetComponent implements OnInit {
         this.asset = result[0];
       });
     }
+
+     //TODO: remove template fetch - this is just here for now to test function
+     this.assetService.fetchAssetTemplates();
   }
 }

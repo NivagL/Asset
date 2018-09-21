@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AssetService } from '../_services/asset.service';
+import { DialogHelper } from '../_helpers/dialog.helper';
 import { asset } from '../_models/index';
 
 @Component({
@@ -9,18 +10,29 @@ import { asset } from '../_models/index';
 })
 export class AssetAccordionComponent implements OnInit {
 
-@Input() assetList: string[];
-@Input() selectedAsset: string;
+  @Input() assetList: string[];
+  @Input() selectedAsset: string;
 
- assets:asset[];
+  assets: asset[];
 
-  constructor(private assetService:AssetService) { }
+  constructor(private assetService: AssetService, private _dialog: DialogHelper) { }
 
   ngOnInit() {
-    
+
     this.assetService.fetchAssets(this.assetList).subscribe(result => {
       this.assets = result;
       console.log(result);
+    });
+  }
+
+
+  createAsset() {
+    var dialogRef = this._dialog.showCreateAsset();
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        // do stuff with new asset
+      }
     });
   }
 }

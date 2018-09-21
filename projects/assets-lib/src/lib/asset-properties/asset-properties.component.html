@@ -1,0 +1,6 @@
+<div *ngIf="asset && assetTemplate">
+  <div *ngFor="let property of asset.properties" class="details">
+      <span class="detailsLabel">{{property.templatePropertyNumber | assetProperty:assetTemplate}}:</span>
+      <span class="detailsValue">{{property.value}}</span>
+  </div>  
+</div>

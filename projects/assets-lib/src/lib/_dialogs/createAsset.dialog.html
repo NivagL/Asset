@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Select Asset Type" aria-label="AssetTemplate" matInput [formControl]="assetTypeControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getDisplayFn(this)">
+            <mat-option *ngFor="let option of filteredAssetTypeOptions | async" [value]="option">
+                {{option.value}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button (click)="buildAssetTemplate()">Get Template</button>
+
+    <div *ngIf="newAsset">
+        <div>
+            <mat-form-field>
+                <input matInput placeholder="Category" value="">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field> <input matInput placeholder="Label" value=""> </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field> <input matInput placeholder="GIS Id" value=""> </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field> <input matInput placeholder="Address" value=""> </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field> <input matInput placeholder="Equipment Id" value=""> </mat-form-field>
+        </div>
+        <!--  <div class="details">
+            <span class="detailsLabel">Category:</span><span class="detailsValue">{{asset.category}}</span>
+        </div>
+        <div class="details">
+            <span class="detailsLabel">Label:</span><span class="detailsValue">{{asset.label}}</span>
+        </div>
+        <div class="details">
+            <span class="detailsLabel">GIS Id:</span><span class="detailsValue">{{asset.gisId}}</span>
+        </div>
+        <div class="details">
+            <span class="detailsLabel">Address:</span><span class="detailsValue">{{asset.address}}</span>
+        </div>
+        <div class="details">
+            <span class="detailsLabel">Equipment Id:</span><span class="detailsValue">{{asset.equipmentId}}</span>
+        </div>
+ -->
+        <h3>Properties</h3>
+        <div>
+            <div *ngFor="let property of newAsset.properties" class="details">
+                <!-- <span class="detailsLabel">{{property.templatePropertyNumber | assetProperty:newAsset.assetTemplate}}:</span> -->
+                <mat-form-field>
+                    <input matInput placeholder="{{property.templatePropertyNumber | assetProperty:newAsset.assetTemplate}}"
+                        value="">
+                </mat-form-field>
+                <!-- <span class="detailsValue">{{property.value}}</span> -->
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data">Create</button>
+    <button mat-button [mat-dialog-close]>Cancel</button>
+</mat-dialog-actions>

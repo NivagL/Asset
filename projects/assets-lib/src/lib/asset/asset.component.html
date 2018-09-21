@@ -15,7 +15,7 @@
   <div class="details">
     <span class="detailsLabel">Equipment Id:</span><span class="detailsValue">{{asset.equipmentId}}</span>
   </div>
-  <div class="thumbnail-gallery">
+  <div *ngIf="asset.equipmentId=='2'" class="thumbnail-gallery">
     <a target="_blank" href="assets/images/IMG_0540.JPG">
       <img class="img-thumb" src="assets/images/IMG_0540.JPG" alt="testimage">
     </a>

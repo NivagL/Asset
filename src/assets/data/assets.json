@@ -1,32 +1,67 @@
 [
     {
-        "subNo":"C-1032",
-        "label":"C1032",
-        "category":"Ground Mounted Substation",
-        "gisId":"820680",
-        "address":"Richardson Road, 719",
-        "suburb":"Hillsborough",
-        "mtceZone":"White Swan",
-        "waspId":"GSUB207856",
-        "owner":"Vector",
-        "equipmentId":"2",
-       
-        "characteristics":[{"description":"char1"}, {"description":"char2"}],
-        "notifications":[{"description":"notify"}]
+        "assetType":0,
+        "subNo": "C-1032",
+        "label": "C1032",
+        "category": "Ground Mounted Substation",
+        "gisId": "820680",
+        "address": "Richardson Road, 719",
+        "suburb": "Hillsborough",
+        "mtceZone": "White Swan",
+        "waspId": "GSUB207856",
+        "owner": "Vector",
+        "equipmentId": "2",
+        "properties": [
+            {
+                "id": 1,
+                "value": "my manufacturer",
+                "templatePropertyNumber": 1
+            },
+            {
+                "id": 2,
+                "value": 2.34,
+                "templatePropertyNumber": 2
+            }
+        ],
+        "notifications": [
+            {
+                "description": "notify"
+            }
+        ]
     },
     {
-        "subNo":"C-1032",
-        "label":"C1032:1:GM",
-        "category":"DST Transformer",
-        "gisId":"50009354",
-        "address":"Richardson Road, 719",
-        "suburb":"Hillsborough",
-        "mtceZone":"White Swan",
-        "waspId":"DSTX396122",
-        "owner":"Vector",
-        "equipmentId":"IE000000000013284145",
-
-        "characteristics":[{"description":"char1"}, {"description":"char2"}],
-        "notifications":[{"description":"notify"}]
+        "assetType":1,
+        "subNo": "C-1032",
+        "label": "C1032:1:GM",
+        "category": "DST Transformer",
+        "gisId": "50009354",
+        "address": "Richardson Road, 719",
+        "suburb": "Hillsborough",
+        "mtceZone": "White Swan",
+        "waspId": "DSTX396122",
+        "owner": "Vector",
+        "equipmentId": "IE000000000013284145",
+        "properties": [
+            {
+                "id": 1,
+                "value": "my manufacturer",
+                "templatePropertyNumber": 1
+            },
+            {
+                "id": 2,
+                "value": 16,
+                "templatePropertyNumber": 3
+            },
+            {
+                "id": 3,
+                "value": 2.34,
+                "templatePropertyNumber": 4
+            }
+        ],
+        "notifications": [
+            {
+                "description": "notify"
+            }
+        ]
     }
 ]

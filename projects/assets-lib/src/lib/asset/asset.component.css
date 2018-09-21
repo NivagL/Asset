@@ -27,6 +27,7 @@ h3 {
     border-radius: 4px;  
     padding: 5px; 
     width: 150px; 
+    transform:rotate(0.25turn);
 }
 
 .img-thumb:hover {
@@ -35,4 +36,5 @@ h3 {
 
 .thumbnail-gallery{
     text-align:center;
+    padding-top:25px;
 }

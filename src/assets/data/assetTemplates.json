@@ -1,0 +1,45 @@
+[
+    {
+        "id": 1,
+        "typeName": 0, 
+        "properties": [
+            {
+                "id": 2,
+                "name": "height",
+                "unit": "",
+                "type": 2
+            },
+            {
+                "id": 1,
+                "name": "Manufacturer",
+                "unit": "",
+                "type": 0
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "typeName": 1,
+        "properties": [
+            {
+                "id": 1,
+                "name": "Manufacturer",
+                "unit": "",
+                "type": 0
+            },
+            {
+                "id": 3,
+                "name": "Ohms",
+                "unit": "",
+                "type": 1
+            },
+            {
+                "id": 4,
+                "name": "Special",
+                "unit": "",
+                "type": 1
+            }
+
+        ]
+    }
+]
