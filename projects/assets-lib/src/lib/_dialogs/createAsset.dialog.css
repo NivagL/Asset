@@ -1,0 +1,21 @@
+.asset-dynamic {
+    display: inline-block;
+    padding-left: 20px;
+    max-height: 200px;
+}
+
+.dialog-full-width {
+    display:block;
+}
+
+.asset-container {
+    display:inline-flex;
+}
+
+::ng-deep .mat-checkbox-label {
+    line-height:inherit !important;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+    margin-bottom:-2px !important;
+}

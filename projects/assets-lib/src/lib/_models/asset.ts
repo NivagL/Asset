@@ -1,9 +1,9 @@
-import { assetProperty, notification, assetTypeEnum, assetTemplate } from './index';
+import { AssetProperty, Notification, AssetTypeEnum, AssetTemplate } from './index';
 
-export class asset {
+export class Asset {
     
 
-    assetType:assetTypeEnum;
+    assetType:AssetTypeEnum;
     subNo:string;
     label:string;
     category:string;
@@ -18,7 +18,7 @@ export class asset {
     lat:number;
     lon:number;
 
-    properties:assetProperty[];
-    notifications:notification[];
-    assetTemplate:assetTemplate;
+    properties:AssetProperty[];
+    notifications:Notification[];
+    assetTemplate:AssetTemplate;
 }

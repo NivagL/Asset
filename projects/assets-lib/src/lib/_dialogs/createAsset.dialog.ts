@@ -4,20 +4,21 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { asset, assetTypeEnum } from '../_models/index';
+import { Asset, AssetTypeEnum } from '../_models/index';
 import { AssetService } from '../_services/asset.service';
 
 @Component({
     selector: 'createAsset.dialog',
-    templateUrl: 'createAsset.dialog.html'
+    templateUrl: 'createAsset.dialog.html',
+    styleUrls: ['createAsset.dialog.css']
 })
 
 export class CreateAssetDialog implements OnInit {
 
-    title: string = "Asset";
-    asset: asset = new asset();
+    title: string = "Create Asset";
+    asset: Asset = new Asset();
     assetType = [];
-    newAsset:asset = null;
+    newAsset: Asset = null;
 
     assetTypeControl = new FormControl();
     filteredAssetTypeOptions: Observable<string[]>;
@@ -36,6 +37,7 @@ export class CreateAssetDialog implements OnInit {
         );
     }
 
+    // auto drop down methods 
     private _filter(value: string): string[] {
         if (typeof value != "string")
             return [];
@@ -55,19 +57,21 @@ export class CreateAssetDialog implements OnInit {
 
     buildAssetTemplateDropDown() {
         this.assetType = [];
-        for (var enumMember in assetTypeEnum) {
+        for (var enumMember in AssetTypeEnum) {
             if (!isNaN(parseInt(enumMember, 10))) {
-                this.assetType.push({ key: enumMember, value: assetTypeEnum[enumMember] });
+                this.assetType.push({ key: enumMember, value: AssetTypeEnum[enumMember] });
             }
         }
     }
+    // end auto drop down methods
 
-    buildAssetTemplate() {
-        var templateType:assetTypeEnum = this.assetTypeControl.value.key;
+    // based on template selected build the new asset with relevant properties
+    buildAssetTemplate(selectedItem) {
+        var templateType: AssetTypeEnum = selectedItem.key;
 
-        this._assetService.createNewAsset(templateType).subscribe((result:asset)=>{
-            if (result){
-                this.newAsset = result;                
+        this._assetService.createNewAsset(templateType).subscribe((result: Asset) => {
+            if (result) {
+                this.newAsset = result;
             }
         });
     }

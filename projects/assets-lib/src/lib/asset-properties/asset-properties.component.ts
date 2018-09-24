@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { asset, assetTemplate } from '../_models/index';
+import { Asset, AssetTemplate } from '../_models/index';
 import { AssetService } from '../_services/asset.service';
 
 @Component({
@@ -10,15 +10,15 @@ import { AssetService } from '../_services/asset.service';
 })
 export class AssetPropertiesComponent implements OnInit {
 
-  @Input() asset: asset;
+  @Input() asset: Asset;
  
-  assetTemplate: assetTemplate;
+  assetTemplate: AssetTemplate;
 
   constructor(private _assetService: AssetService) { }
 
   ngOnInit() {
     console.log(this.asset.assetType);
-    this._assetService.fetchAssetTemplate(this.asset.assetType).subscribe((result: assetTemplate) => {
+    this._assetService.fetchAssetTemplate(this.asset.assetType).subscribe((result: AssetTemplate) => {
       this.assetTemplate = result;
       console.log(result);
     });

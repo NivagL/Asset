@@ -5,7 +5,7 @@
         "properties": [
             {
                 "id": 2,
-                "name": "height",
+                "name": "Height",
                 "unit": "",
                 "type": 2
             },
@@ -14,6 +14,18 @@
                 "name": "Manufacturer",
                 "unit": "",
                 "type": 0
+            },
+            {
+                "id": 5,
+                "name": "Some Date Prop",
+                "unit": "",
+                "type": 4
+            },
+            {
+                "id": 6,
+                "name": "Some Bool Prop",
+                "unit": "",
+                "type": 3
             }
         ]
     },

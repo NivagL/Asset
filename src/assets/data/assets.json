@@ -15,12 +15,22 @@
             {
                 "id": 1,
                 "value": "my manufacturer",
-                "templatePropertyNumber": 1
+                "templatePropertyId": 1
             },
             {
                 "id": 2,
                 "value": 2.34,
-                "templatePropertyNumber": 2
+                "templatePropertyId": 2
+            },
+            {
+                "id": 3,
+                "value": "2018-04-23T13:25:43.511Z",
+                "templatePropertyId": 5
+            },
+            {
+                "id": 4,
+                "value": "true",
+                "templatePropertyId": 6
             }
         ],
         "notifications": [
@@ -45,17 +55,17 @@
             {
                 "id": 1,
                 "value": "my manufacturer",
-                "templatePropertyNumber": 1
+                "templatePropertyId": 1
             },
             {
                 "id": 2,
                 "value": 16,
-                "templatePropertyNumber": 3
+                "templatePropertyId": 3
             },
             {
                 "id": 3,
                 "value": 2.34,
-                "templatePropertyNumber": 4
+                "templatePropertyId": 4
             }
         ],
         "notifications": [

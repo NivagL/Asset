@@ -1,9 +1,9 @@
-export enum assetTypeEnum {
+export enum AssetTypeEnum {
     Pole,
     Cabinet
 }
 
-export enum dataTypeEnum {
+export enum DataTypeEnum {
     String,
     Double,    
     Decimal,

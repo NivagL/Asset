@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { assetTemplate } from '../_models/index';
+import { AssetTemplate } from '../_models/index';
 
-@Pipe({ name: 'assetProperty' })
+@Pipe({ name: 'assetNameFromTemplate' })
 export class AssetPropertyPipe implements PipeTransform {
-    transform(value: any, template: assetTemplate) {
+    transform(value: any, template: AssetTemplate) {
 
         if (!value)
             return;

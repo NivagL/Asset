@@ -1,4 +1,4 @@
-export class characteristic {
+export class Characteristic {
     id: string;
     description: string;
     value: string

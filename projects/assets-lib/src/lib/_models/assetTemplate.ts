@@ -1,7 +1,7 @@
-import { assetTypeEnum, assetTemplateProperty } from './index';
+import { AssetTypeEnum, AssetTemplateProperty } from './index';
 
-export class assetTemplate {
+export class AssetTemplate {
     id:number;
-    typeName:assetTypeEnum;
-    properties:assetTemplateProperty[];
+    typeName:AssetTypeEnum;
+    properties:AssetTemplateProperty[];
 }

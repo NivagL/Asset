@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { asset, assetTypeEnum, assetTemplate, assetProperty } from '../_models/index';
+import { Asset, AssetTypeEnum, AssetTemplate, AssetProperty } from '../_models/index';
 
 
 @Injectable({
@@ -13,11 +13,11 @@ export class AssetService {
 
     constructor(private http: Http) { };
 
-    fetchAssets(assetList: string[]): Observable<asset[]> {
+    fetchAssets(assetList: string[]): Observable<Asset[]> {
 
         return this.http.get('assets/data/assets.json')
             .pipe(map((response: Response) => {
-                var assets = <asset[]>response.json();
+                var assets = <Asset[]>response.json();
 
                 if (!assetList)  // TODO: remove this and add dummy asset in test page
                     return assets;
@@ -28,21 +28,21 @@ export class AssetService {
             }));
     }
 
-    fetchAssetTemplates(): Observable<assetTemplate[]> {
+    fetchAssetTemplates(): Observable<AssetTemplate[]> {
 
         return this.http.get('assets/data/assetTemplates.json')
             .pipe(map((response: Response) => {
-                var assetTemplates = <assetTemplate[]>response.json();
+                var assetTemplates = <AssetTemplate[]>response.json();
 
                 return assetTemplates;
             }));
     }
 
-    fetchAssetTemplate(assetType: assetTypeEnum): Observable<assetTemplate> {
+    fetchAssetTemplate(assetType: AssetTypeEnum): Observable<AssetTemplate> {
         console.log('finding template for ' + assetType)
         return this.http.get('assets/data/assetTemplates.json')
             .pipe(map((response: Response) => {
-                var assetTemplates = <assetTemplate[]>response.json();
+                var assetTemplates = <AssetTemplate[]>response.json();
 
                 var template = assetTemplates.find(t => t.typeName == assetType)
                 return template;
@@ -50,18 +50,18 @@ export class AssetService {
     }
 
     // fetch asset object to create
-    createNewAsset(assetType: assetTypeEnum): Observable<asset> {
-        var newAsset = new asset();
+    createNewAsset(assetType: AssetTypeEnum): Observable<Asset> {
+        var newAsset = new Asset();
 
-        return this.fetchAssetTemplate(assetType).pipe(map((result: assetTemplate) => {
-            var newAsset = new asset();
+        return this.fetchAssetTemplate(assetType).pipe(map((result: AssetTemplate) => {
+            var newAsset = new Asset();
             newAsset.assetTemplate = result;
             newAsset.properties = [];
 
             for (var item in result.properties) {
-                var newProperty = new assetProperty();
-                newProperty.templatePropertyNumber = result.properties[item].id;
-
+                var newProperty = new AssetProperty();
+                newProperty.templatePropertyId = result.properties[item].id;
+                newProperty.assetTemplateProperty = result.properties[item];
                 newAsset.properties.push(newProperty);
             }
 

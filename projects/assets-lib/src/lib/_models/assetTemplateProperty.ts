@@ -1,8 +1,8 @@
-import { dataTypeEnum } from './assetEnums';
+import { DataTypeEnum } from './assetEnums';
 
-export class assetTemplateProperty {
+export class AssetTemplateProperty {
     id:number;
     name:string;
     unit:string;
-    type:dataTypeEnum;
+    type:DataTypeEnum;
 }

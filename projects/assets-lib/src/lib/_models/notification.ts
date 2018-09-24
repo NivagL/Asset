@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 
-export class notification {
+export class Notification {
     notficationNumber: number;
     type: string;
     description: string;

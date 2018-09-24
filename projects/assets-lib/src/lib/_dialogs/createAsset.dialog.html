@@ -1,64 +1,78 @@
 <h2 mat-dialog-title>{{title}}</h2>
 <mat-dialog-content>
-    <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Select Asset Type" aria-label="AssetTemplate" matInput [formControl]="assetTypeControl"
-            [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getDisplayFn(this)">
-            <mat-option *ngFor="let option of filteredAssetTypeOptions | async" [value]="option">
-                {{option.value}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <button mat-button (click)="buildAssetTemplate()">Get Template</button>
+    <div>
+        <mat-form-field class="dialog-full-width">
+            <input type="text" placeholder="Select Asset Type" aria-label="AssetTemplate" matInput [formControl]="assetTypeControl"
+                [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getDisplayFn(this)"
+                (optionSelected)="buildAssetTemplate($event.option.value)">
+                <mat-option *ngFor="let option of filteredAssetTypeOptions | async" [value]="option">
+                    {{option.value}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
 
-    <div *ngIf="newAsset">
-        <div>
-            <mat-form-field>
-                <input matInput placeholder="Category" value="">
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field> <input matInput placeholder="Label" value=""> </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field> <input matInput placeholder="GIS Id" value=""> </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field> <input matInput placeholder="Address" value=""> </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field> <input matInput placeholder="Equipment Id" value=""> </mat-form-field>
-        </div>
-        <!--  <div class="details">
-            <span class="detailsLabel">Category:</span><span class="detailsValue">{{asset.category}}</span>
-        </div>
-        <div class="details">
-            <span class="detailsLabel">Label:</span><span class="detailsValue">{{asset.label}}</span>
-        </div>
-        <div class="details">
-            <span class="detailsLabel">GIS Id:</span><span class="detailsValue">{{asset.gisId}}</span>
-        </div>
-        <div class="details">
-            <span class="detailsLabel">Address:</span><span class="detailsValue">{{asset.address}}</span>
-        </div>
-        <div class="details">
-            <span class="detailsLabel">Equipment Id:</span><span class="detailsValue">{{asset.equipmentId}}</span>
-        </div>
- -->
-        <h3>Properties</h3>
-        <div>
-            <div *ngFor="let property of newAsset.properties" class="details">
-                <!-- <span class="detailsLabel">{{property.templatePropertyNumber | assetProperty:newAsset.assetTemplate}}:</span> -->
-                <mat-form-field>
-                    <input matInput placeholder="{{property.templatePropertyNumber | assetProperty:newAsset.assetTemplate}}"
-                        value="">
-                </mat-form-field>
-                <!-- <span class="detailsValue">{{property.value}}</span> -->
+        <div *ngIf="newAsset" class="asset-container">
+            <div class="asset-standard">
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Category" [(ngModel)]="newAsset.category">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Label" [(ngModel)]="newAsset.label">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="GIS Id" [(ngModel)]="newAsset.gisId">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Address" [(ngModel)]="newAsset.address">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Equipment Id" [(ngModel)]="newAsset.equipmentId">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="asset-dynamic">
+                <div *ngFor="let property of newAsset.properties" class="details">
+
+                    <mat-form-field *ngIf="property.assetTemplateProperty.type == 0">
+                        <input matInput type="text" placeholder="{{property.templatePropertyId | assetNameFromTemplate:newAsset.assetTemplate}}"
+                            [(ngModel)]="property.value">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="property.assetTemplateProperty.type == 1 || property.assetTemplateProperty.type == 2">
+                        <input matInput type="number" placeholder="{{property.templatePropertyId | assetNameFromTemplate:newAsset.assetTemplate}}"
+                            [(ngModel)]="property.value">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="property.assetTemplateProperty.type == 3">
+                        <input matInput type="text" style="display:none">
+                        <mat-checkbox [(ngModel)]="property.boolValue" labelPosition="before">
+                            {{property.templatePropertyId | assetNameFromTemplate:newAsset.assetTemplate}}
+                        </mat-checkbox>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="property.assetTemplateProperty.type == 4">
+                        <input matInput [matDatepicker]="picker" placeholder="{{property.templatePropertyId | assetNameFromTemplate:newAsset.assetTemplate}}"
+                            [(ngModel)]="property.dateValue">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
             </div>
         </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data">Create</button>
     <button mat-button [mat-dialog-close]>Cancel</button>
+    <button mat-button [mat-dialog-close]="data">Create</button>
 </mat-dialog-actions>

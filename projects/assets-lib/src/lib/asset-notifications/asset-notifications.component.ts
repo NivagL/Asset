@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { asset } from '../_models/index';
+import { Asset } from '../_models/index';
 
 @Component({
   selector: 'astlib-asset-notifications',
@@ -9,7 +9,7 @@ import { asset } from '../_models/index';
 })
 export class AssetNotificationsComponent implements OnInit {
 
-  @Input() asset: asset;
+  @Input() asset: Asset;
 
   constructor() { }
 

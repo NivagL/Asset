@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AssetService } from '../_services/asset.service';
-import { asset, assetTypeEnum } from '../_models/index';
+import { Asset, AssetTypeEnum } from '../_models/index';
 
 @Component({
   selector: 'astlib-asset',
@@ -9,13 +9,13 @@ import { asset, assetTypeEnum } from '../_models/index';
 })
 export class AssetComponent implements OnInit {
 
-  @Input() asset: asset;
+  @Input() asset: Asset;
 
   constructor(private assetService: AssetService) { }
 
   ngOnInit() {
     if (!this.asset) {
-      this.assetService.fetchAssets(null).subscribe((result: asset[]) => {
+      this.assetService.fetchAssets(null).subscribe((result: Asset[]) => {
         this.asset = result[0];
       });
     }
