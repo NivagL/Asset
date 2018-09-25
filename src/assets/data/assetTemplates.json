@@ -26,6 +26,12 @@
                 "name": "Some Bool Prop",
                 "unit": "",
                 "type": 3
+            },
+            {
+                "id": 7,
+                "name": "another date Prop",
+                "unit": "",
+                "type": 4
             }
         ]
     },

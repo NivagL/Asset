@@ -1,0 +1,11 @@
+
+
+.menu-list { 
+    padding: 0px
+ } 
+ .menu-list li {
+    display: inline-block;
+    width: auto;
+    list-style: outside none none;
+    padding-left:20px;
+ }
