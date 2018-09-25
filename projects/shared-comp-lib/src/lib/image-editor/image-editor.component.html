@@ -1,0 +1,11 @@
+<div> 
+  <canvas #myCanvas 
+   ></canvas>
+<div>
+  <label>Enter text to go onto image:</label>
+  <input type="text" [(ngModel)]="textToAdd" >
+  <button (click)="addTextToImage()">Add to image</button>
+  <button (click)="saveNewImage()">Save new image</button>
+  <button (click)="reset()">Reset</button>
+</div>
+<img #canvasImage alt="Right click to save">
