@@ -5,3 +5,22 @@
     height: 35px;
     border: none;
 }
+
+.edit-icon{
+    height:30px;
+}
+
+.photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.photo-toolbar {
+    justify-content: center;
+}
+
+.spacer {
+    width: 20px;
+}
+

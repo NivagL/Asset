@@ -10,18 +10,18 @@ import { pairwise, switchMap, takeUntil } from 'rxjs/operators';
 })
 export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @Input('imageUrl') imageUrl:string; 
+  @Input('imageUrl') imageUrl: string;
   @ViewChild('myCanvas') myCanvas: ElementRef;
   @ViewChild('savedImage') savedImage: ElementRef;
   public context: CanvasRenderingContext2D;
   canvasEl: HTMLCanvasElement;
-  savedImageEl:HTMLImageElement;
+  savedImageEl: HTMLImageElement;
   textToAdd: string = "";
   mouseDrawingSubscription: Subscription;
   touchDrawingSubscription: Subscription;
+  editMode: boolean = false;
 
   //-------------- imported vars 
-  currentIndex: number;
   length: number;
   rotate: string;
   selectedColour;
@@ -49,12 +49,20 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       this.context.drawImage(image, 0, 0, 700, 525);
     }
     image.src = this.imageUrl;
-
-    this.captureEvents(this.canvasEl);
-    this.captureTouchEvents(this.canvasEl);
-
   }
 
+  editModeChanged() {
+    this.editMode = !this.editMode;
+
+    if (this.editMode) {
+      this.captureEvents(this.canvasEl);
+      this.captureTouchEvents(this.canvasEl);
+    }
+    else {
+      this.mouseDrawingSubscription.unsubscribe();
+      this.touchDrawingSubscription.unsubscribe();
+    }
+  }
 
   addTextToImage() {
     this.context.font = "italic 18px Arial";
@@ -67,8 +75,6 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   saveNewImage() {
 
     var dataUrl = this.canvasEl.toDataURL();
-
-    
 
     this.savedImageEl.src = dataUrl;
   }

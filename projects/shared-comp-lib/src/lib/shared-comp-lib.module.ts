@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
   MatToolbarModule,
-  MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule
+  MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule, MatIconModule,
 } from '@angular/material';
 
 import { SharedCompLibComponent } from './shared-comp-lib.component';
@@ -13,7 +13,7 @@ import { ImageEditorComponent } from './image-editor/image-editor.component';
   imports: [
     FormsModule,
     CommonModule,
-    MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule
+    MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule,MatIconModule
   ],
   declarations: [SharedCompLibComponent, ImageEditorComponent],
   exports: [ImageEditorComponent]
