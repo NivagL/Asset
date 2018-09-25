@@ -23,6 +23,12 @@
       ],
       "assets-lib/*": [
         "dist/assets-lib/*"
+      ],
+      "shared-comp-lib": [
+        "dist/shared-comp-lib"
+      ],
+      "shared-comp-lib/*": [
+        "dist/shared-comp-lib/*"
       ]
     }
   }

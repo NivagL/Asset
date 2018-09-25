@@ -156,6 +156,41 @@
           }
         }
       }
+    },
+    "shared-comp-lib": {
+      "root": "projects/shared-comp-lib",
+      "sourceRoot": "projects/shared-comp-lib/src",
+      "projectType": "library",
+      "prefix": "scl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/shared-comp-lib/tsconfig.lib.json",
+            "project": "projects/shared-comp-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/shared-comp-lib/src/test.ts",
+            "tsConfig": "projects/shared-comp-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/shared-comp-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/shared-comp-lib/tsconfig.lib.json",
+              "projects/shared-comp-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "assets-lib-app"
