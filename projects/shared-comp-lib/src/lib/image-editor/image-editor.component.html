@@ -1,11 +1,31 @@
-<div> 
-  <canvas #myCanvas 
-   ></canvas>
-<div>
-  <label>Enter text to go onto image:</label>
-  <input type="text" [(ngModel)]="textToAdd" >
-  <button (click)="addTextToImage()">Add to image</button>
-  <button (click)="saveNewImage()">Save new image</button>
-  <button (click)="reset()">Reset</button>
-</div>
-<img #canvasImage alt="Right click to save">
+<canvas #myCanvas></canvas>
+
+<mat-toolbar>
+  <span class='left toolbar'>
+    <mat-button-toggle-group #toolGroup="matButtonToggleGroup" multiple="true">
+      <mat-button-toggle value="draw" [checked]='false'>
+        <i>edit</i>
+      </mat-button-toggle>
+      <!-- <mat-button-toggle [value]="text" [checked]='false'>
+        <i [ngClass]="config.iconSize">comment</i>
+      </mat-button-toggle> -->
+    </mat-button-toggle-group>
+    <!-- <mat-button-toggle [checked]='false' [disabled]='true'> -->
+    <input mat-input class="colour-button" type="color" value="#ff0000" [(ngModel)]="selectedColour" (change)="onColourChange()">
+    <!-- </mat-button-toggle> -->
+  </span>
+  <span class='space-filler'></span>
+  <span class='center'>
+    <!-- <input type="file" capture="camera" accept="image/*" class="file-button" (change)="getFiles($event)"> -->
+    <mat-form-field floatLabel="never">
+      <input matInput type="text" placeholder="Enter annotation" [(ngModel)]="textToAdd">
+    </mat-form-field>
+    <button mat-button (click)="addTextToImage()">Enter</button>
+    <button mat-fab color='none' (click)="saveNewImage()">Save</button>
+    <button mat-fab color='none' (click)="reset()">Reset </button>
+
+  </span>
+  <span class='space-filler'></span>
+</mat-toolbar>
+
+<img #savedImage alt="Right click to save">

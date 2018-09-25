@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { pairwise, switchMap, takeUntil } from 'rxjs/operators';
@@ -10,13 +10,23 @@ import { pairwise, switchMap, takeUntil } from 'rxjs/operators';
 })
 export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Input('imageUrl') imageUrl:string; 
   @ViewChild('myCanvas') myCanvas: ElementRef;
-  @ViewChild('canvasImage') canvasImage: ElementRef;
+  @ViewChild('savedImage') savedImage: ElementRef;
   public context: CanvasRenderingContext2D;
   canvasEl: HTMLCanvasElement;
+  savedImageEl:HTMLImageElement;
   textToAdd: string = "";
   mouseDrawingSubscription: Subscription;
   touchDrawingSubscription: Subscription;
+
+  //-------------- imported vars 
+  currentIndex: number;
+  length: number;
+  rotate: string;
+  selectedColour;
+  files: FileList;
+
   constructor() { }
 
   ngOnInit() {
@@ -24,6 +34,7 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.canvasEl = this.myCanvas.nativeElement;
+    this.savedImageEl = this.savedImage.nativeElement;
     this.context = this.canvasEl.getContext('2d');
 
     this.canvasEl.width = 700;
@@ -31,20 +42,17 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
-    this.context.strokeStyle = '#000';
+    this.context.strokeStyle = this.selectedColour;
 
     var image = new Image();
     image.onload = () => {
       this.context.drawImage(image, 0, 0, 700, 525);
     }
-    image.src = "assets/images/IMG_0540.JPG";
-
+    image.src = this.imageUrl;
 
     this.captureEvents(this.canvasEl);
     this.captureTouchEvents(this.canvasEl);
 
-
-   
   }
 
 
@@ -52,7 +60,7 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     this.context.font = "italic 18px Arial";
     this.context.textAlign = "bottom";
     this.context.textBaseline = "middle";
-    this.context.fillStyle = "red";
+    this.context.fillStyle = this.selectedColour;
     this.context.fillText(this.textToAdd, 50, 50);
   }
 
@@ -60,9 +68,9 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     var dataUrl = this.canvasEl.toDataURL();
 
-    const imageEl: HTMLImageElement = this.canvasImage.nativeElement;
+    
 
-    imageEl.src = dataUrl;
+    this.savedImageEl.src = dataUrl;
   }
 
   reset() {
@@ -70,7 +78,9 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     image.onload = () => {
       this.context.drawImage(image, 0, 0, 700, 525);
     }
-    image.src = "assets/images/IMG_0540.JPG";
+    image.src = this.imageUrl; // "assets/images/IMG_0540.JPG";
+
+    this.savedImageEl.src = "";
   }
 
   drawing = false;
@@ -160,9 +170,7 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.context) {
       return;
     }
-console.log('drawing');
-console.log('previous   ' + prevPos.x + '   ' + prevPos.y);
-console.log('current   ' + currentPos.x + '  ' + currentPos.y);
+
     // start our drawing path
     this.context.beginPath();
 
@@ -176,6 +184,11 @@ console.log('current   ' + currentPos.x + '  ' + currentPos.y);
       // strokes the current path with the styles we set earlier
       this.context.stroke();
     }
+  }
+
+  onColourChange() {
+    // localStorage.setItem('AnnotationColour', this.selectedColour);
+    this.context.strokeStyle = this.selectedColour;
   }
 
   ngOnDestroy() {
