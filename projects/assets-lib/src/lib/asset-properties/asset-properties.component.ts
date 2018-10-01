@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Asset, AssetTemplate } from '../_models/index';
+import { Asset, AssetTemplate, AssetProperty, AssetTemplateProperty } from '../_models/index';
 import { AssetService } from '../_services/asset.service';
+import { DialogHelper } from '../_helpers/dialog.helper';
 
 @Component({
   selector: 'astlib-asset-properties',
@@ -11,17 +12,26 @@ import { AssetService } from '../_services/asset.service';
 export class AssetPropertiesComponent implements OnInit {
 
   @Input() asset: Asset;
- 
+
   assetTemplate: AssetTemplate;
 
-  constructor(private _assetService: AssetService) { }
+  constructor(private _assetService: AssetService, private _dialog: DialogHelper) { }
 
   ngOnInit() {
-    console.log(this.asset.assetType);
-    this._assetService.fetchAssetTemplate(this.asset.assetType).subscribe((result: AssetTemplate) => {
+    console.log(this.asset.assetTypeId);
+    this._assetService.fetchAssetTemplate(this.asset.assetTypeId).subscribe((result: AssetTemplate) => {
       this.assetTemplate = result;
       console.log(result);
     });
   }
 
+  updateProperty(property: AssetProperty) {
+
+    if (!property.assetTemplateProperty) {
+      var template: AssetTemplateProperty = this.assetTemplate.properties.find(t => t.id == property.templatePropertyId);
+      property.assetTemplateProperty = template;
+    }
+
+    this._dialog.updateAssetProperty(property);
+  }
 }

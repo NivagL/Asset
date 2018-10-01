@@ -1,5 +1,5 @@
 <div *ngIf="asset && assetTemplate">
-  <div *ngFor="let property of asset.properties" class="details">
+  <div *ngFor="let property of asset.properties" class="details" (click)="updateProperty(property)">
     <span class="detailsLabel">{{property.templatePropertyId | assetNameFromTemplate:assetTemplate}}:</span>
     <span class="detailsValue">{{property.value | displayPropertyValue:property:assetTemplate}}</span>
   </div>

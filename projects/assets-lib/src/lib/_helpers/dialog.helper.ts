@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CreateAssetDialog } from '../_dialogs/index';
+import { EditAssetPropertyDialog } from '../_dialogs/editAssetProperty.dialog';
+import { AssetProperty } from '../_models/assetProperty';
 
 
 @Injectable({
@@ -19,6 +21,16 @@ export class DialogHelper {
     showCreateAsset(): MatDialogRef<CreateAssetDialog, any> {
         let dialogRef = this._dialog.open(CreateAssetDialog, {
             data: { title: 'Create Asset' }
+        });
+
+        return dialogRef;
+    }
+
+    updateAssetProperty(assetProperty:AssetProperty) : MatDialogRef<EditAssetPropertyDialog,any>{
+        let dialogRef = this._dialog.open(EditAssetPropertyDialog, {
+            data: {                 
+                assetProperty : assetProperty
+            }
         });
 
         return dialogRef;

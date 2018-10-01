@@ -6,8 +6,8 @@ import {
   MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule, MatIconModule,
 } from '@angular/material';
 
-import { SharedCompLibComponent } from './shared-comp-lib.component';
 import { ImageEditorComponent } from './image-editor/image-editor.component';
+
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { ImageEditorComponent } from './image-editor/image-editor.component';
     CommonModule,
     MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule,MatIconModule
   ],
-  declarations: [SharedCompLibComponent, ImageEditorComponent],
+  declarations: [ImageEditorComponent],
   exports: [ImageEditorComponent]
 })
 export class SharedCompLibModule { }

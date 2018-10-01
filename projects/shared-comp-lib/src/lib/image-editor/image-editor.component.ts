@@ -199,8 +199,10 @@ export class ImageEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     // this will remove event lister when this component is destroyed
-    this.mouseDrawingSubscription.unsubscribe();
-    this.touchDrawingSubscription.unsubscribe();
+    if (this.mouseDrawingSubscription)
+        this.mouseDrawingSubscription.unsubscribe();
+    if (this.touchDrawingSubscription)
+        this.touchDrawingSubscription.unsubscribe();
   }
 
 }

@@ -1,24 +1,34 @@
-import { AssetProperty, Notification, AssetTypeEnum, AssetTemplate } from './index';
+import { AssetProperty, Notification, AssetTypeEnum, AssetTemplate, Identity } from './index';
+import { Guid } from 'shared-comp-lib';
 
-export class Asset {
-    
+export class Asset implements Identity {
 
-    assetType:AssetTypeEnum;
-    subNo:string;
-    label:string;
-    category:string;
-    gisId:number;
-    address:string;
-    suburb:string;
-    mtceZone:string;
-    waspId:string;
-    owner:string;
-    equipmentId:string;
-  
-    lat:number;
-    lon:number;
+    id: Guid;
+    networkTypeId: string;
+    assetTypeId: AssetTypeEnum;
+    assetSubTypeId: number;
+    gisId: number;
+    equipmentId: string;
+    floc: string;
 
-    properties:AssetProperty[];
-    notifications:Notification[];
-    assetTemplate:AssetTemplate;
+    properties: AssetProperty[];
+
+
+    address: string;
+    category: string;
+    label: string;
+
+    suburb: string;
+    mtceZone: string;
+    waspId: string;
+    owner: string;
+
+
+    lat: number;
+    lon: number;
+
+
+
+    notifications: Notification[];
+    assetTemplate: AssetTemplate;
 }

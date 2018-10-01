@@ -1,9 +1,10 @@
-import { AssetTemplateProperty } from './assetTemplateProperty';
+import { AssetTemplateProperty, Identity } from '../_models/index';
+import { Guid } from 'shared-comp-lib';
 
-export class AssetProperty {
-    id: number;
+export class AssetProperty implements Identity {
+    id: Guid;
     value: string;
-    templatePropertyId: number;
+    templatePropertyId: Guid;
 
     // should not to come from service this is assigned when required in the ts file eg: createAsset.dialog
     assetTemplateProperty: AssetTemplateProperty;

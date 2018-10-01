@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
+
 @Component({
   selector: 'app-multiple-asset',
   templateUrl: './multiple-asset.component.html',
@@ -10,7 +13,9 @@ export class MultipleAssetComponent implements OnInit {
   selectedAssets: string[];
   selectedAsset: string;
 
-  constructor() { }
+  constructor() { 
+   
+   }
 
   ngOnInit() {
 

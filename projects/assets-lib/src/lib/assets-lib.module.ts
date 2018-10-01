@@ -13,7 +13,8 @@ import { AssetNotificationsComponent } from './asset-notifications/asset-notific
 import { AssetPropertyPipe } from './_pipes/assetProperty.pipe';
 import { DisplayPropertyValuePipe } from './_pipes/displayPropetyValue.pipe';
 import { AssetComponent } from './asset/asset.component';
-
+import { EditAssetPropertyDialog } from './_dialogs/editAssetProperty.dialog';
+import { SharedCompLibModule } from 'shared-comp-lib';
 
 import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
 
@@ -23,16 +24,18 @@ import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
     BrowserAnimationsModule,
     FormsModule, ReactiveFormsModule,
     MatExpansionModule, MatTabsModule, MatDialogModule, MatButtonModule, MatAutocompleteModule, MatInputModule,
-    MatNativeDateModule, MatDatepickerModule, MatCheckboxModule
+    MatNativeDateModule, MatDatepickerModule, MatCheckboxModule,
+    SharedCompLibModule
   ],
   declarations: [
     AssetComponent, AssetAccordionComponent, AssetPropertiesComponent,
     AssetNotificationsComponent, AssetPropertyPipe, DisplayPropertyValuePipe,
-    CreateAssetDialog
+    CreateAssetDialog, EditAssetPropertyDialog
   ],
   exports: [AssetComponent, AssetAccordionComponent],
   entryComponents: [
-    CreateAssetDialog
+    CreateAssetDialog,
+    EditAssetPropertyDialog
   ]
 })
 export class AssetsLibModule { }

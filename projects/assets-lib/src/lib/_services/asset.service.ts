@@ -1,17 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Asset, AssetTypeEnum, AssetTemplate, AssetProperty } from '../_models/index';
-
+import { UnitOfWork } from '../_data.classes/UnitOfWork';
+import { GenericRepository } from '../_data.classes/GenericRepository';
+import { Guid } from 'shared-comp-lib';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AssetService {
 
-    constructor(private http: Http) { };
+    _unitOfWork: UnitOfWork;
+    _assetTemplateRepo: GenericRepository<AssetTemplate>;
+
+    constructor(private http: Http) {
+        this._unitOfWork = new UnitOfWork();
+        this._unitOfWork.AssetsTemplateRepository().then(result => this._assetTemplateRepo = result);
+    };
+
+    fetchAssetsTemplatesDB(id: Guid): Observable<AssetTemplate> {
+
+        return from(this._unitOfWork.AssetsTemplateRepository().then(result => result.getById(id)).then(result => {
+            if (!result) {
+                this.http.get('https://localhost/api/assettemplate')
+                    .pipe(map((response: Response) => {
+                        var assetTemplates = <AssetTemplate[]>response.json();
+
+                        assetTemplates.forEach((template) => console.log(template.id));
+
+                        assetTemplates.forEach((template) => {
+                            this._assetTemplateRepo.getById(template.id).then(foundRecord => {
+                                if (!foundRecord)
+                                    this._assetTemplateRepo.addRecord(template);
+                                else
+                                    this._assetTemplateRepo.updateRecord(template);
+                            });
+                        });
+
+                        return assetTemplates;
+                    })).subscribe((x) => x[0]);
+            } else {
+                return result;
+            }
+        }));
+    }
 
     fetchAssets(assetList: string[]): Observable<Asset[]> {
 
@@ -30,17 +65,23 @@ export class AssetService {
 
     fetchAssetTemplates(): Observable<AssetTemplate[]> {
 
-        return this.http.get('assets/data/assetTemplates.json')
+
+        return this.http.get('https://localhost/api/assettemplate')
             .pipe(map((response: Response) => {
                 var assetTemplates = <AssetTemplate[]>response.json();
+
+                assetTemplates.forEach((template) => this._assetTemplateRepo.addRecord(template));
 
                 return assetTemplates;
             }));
     }
 
     fetchAssetTemplate(assetType: AssetTypeEnum): Observable<AssetTemplate> {
+        return this.fetchAssetsTemplatesDB(Guid.newGuid());
+
+
         console.log('finding template for ' + assetType)
-        return this.http.get('assets/data/assetTemplates.json')
+        return this.http.get('https://localhost/api/assettemplate')
             .pipe(map((response: Response) => {
                 var assetTemplates = <AssetTemplate[]>response.json();
 
