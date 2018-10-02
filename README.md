@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
-This is an Angular library, the library must be built before serving the test app. See the build section below for the syntax.
+This is an Angular library, the libraries must be built before serving the test app. See the build section below for the syntax.
 
 ## Development server
 
@@ -14,7 +14,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build assets-lib` to build the library. This will create the library package in the `dist/` directory. Then allowing the test app to be built or served.
+Run `ng build assets-lib` to build the asset library. This will create the library package in the `dist/` directory. 
+Run `ng build shared-comp-lib` to build the asset library. This will create the library package in the `dist/` directory. 
+
+The test app can now be built.
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
