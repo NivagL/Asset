@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Asset, AssetTemplate } from '../_models/index';
+import { Asset, AssetTemplate, Identity } from '../_models/index';
 import { GenericRepository } from './GenericRepository';
 import { resolve } from 'dns';
 import { Observable, observable } from 'rxjs';
-import { Identity } from 'assets-lib/lib/_models';
 
 @Injectable({
     providedIn: 'root'
