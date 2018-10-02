@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Asset, AssetTemplate } from '../_models/index';
 import { GenericRepository } from './GenericRepository';
 import { resolve } from 'dns';
+import { Observable, observable } from 'rxjs';
+import { Identity } from 'assets-lib/lib/_models';
 
+@Injectable({
+    providedIn: 'root'
+})
 export class UnitOfWork {
 
     private assetRepository: GenericRepository<Asset> = null;
@@ -10,46 +15,54 @@ export class UnitOfWork {
 
     public db: IDBDatabase = null;
 
+    databaseName: string = "myDb";
+    dbVersion: number = 2;
+
     constructor() {
-        this.openDatabase("myDB", 1, this.upgradeDatabase).then((result) => this.db = result);
+      //  this.openDatabase("myDB", 1, this.upgradeDatabase).subscribe((result) => this.db = result);
     }
 
-    AssetsRepository(): GenericRepository<Asset> {
-        if (!this.assetRepository) {
-            this.openDatabase("myDB", 1, this.upgradeDatabase).then((result) =>
-                this.assetRepository = new GenericRepository(result, "assets")
-            );
+    AssetsRepository(): Observable<GenericRepository<Asset>> {
+        
+        return this.fetchRepository<Asset>(this.assetRepository, "assets");
+    }
+
+    AssetsTemplateRepository(): Observable<GenericRepository<AssetTemplate>> {
+
+        return this.fetchRepository<AssetTemplate>(this.assetTemplateRepository, "assetTemplates");
+    }
+
+    fetchRepository<T extends Identity>(repo: GenericRepository<T>, objectStoreName: string): Observable<GenericRepository<T>> {
+
+        if (repo) {
+            return new Observable((observer) => observer.next(repo));
+        } else if (!this.db) {
+            return new Observable((observer) =>
+
+                this.openDatabase(this.databaseName, this.dbVersion, this.upgradeDatabase).subscribe((result) => {
+                    this.db = result;
+                    var repo = new GenericRepository<T>(this.db, objectStoreName);
+                    observer.next(repo);
+
+                }));
+        } else {
+            return new Observable((observer) => observer.next(new GenericRepository<T>(this.db, objectStoreName)));
         }
-
-        return this.assetRepository;
     }
 
-    AssetsTemplateRepository(): Promise<GenericRepository<AssetTemplate>> {
-        return new Promise((resolve, reject) => {
-            if (!this.assetTemplateRepository) {
-                this.openDatabase("myDB", 1, this.upgradeDatabase).then((result) => {
-                    this.assetTemplateRepository = new GenericRepository(result, "assetTemplates");
-                    resolve(this.assetTemplateRepository);
-                });
-            }
-
-
-        });
-    }
-
-    openDatabase(name: string, version: number, upgradeDBCallback): Promise<IDBDatabase> {
-        return new Promise(function (resolve, reject) {
+    openDatabase(name: string, version: number, upgradeDBCallback): Observable<IDBDatabase> {
+        return new Observable((observer) => {
             var request: IDBOpenDBRequest = window.indexedDB.open(name, version);
 
             request.onupgradeneeded = (event: IDBVersionChangeEvent) => upgradeDBCallback(request.result);
 
             request.onerror = (event) => {
                 var result: IDBRequest = event.target as IDBRequest;
-                reject(new Error('error opening database: ' + result.error.name));
+                observer.error(new Error('error opening database: ' + result.error.name));
             }
 
             request.onsuccess = (event) => {
-                resolve(request.result);
+                observer.next(request.result);
             }
         });
     }

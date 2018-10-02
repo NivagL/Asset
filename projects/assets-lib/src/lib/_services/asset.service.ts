@@ -18,34 +18,18 @@ export class AssetService {
 
     constructor(private http: Http) {
         this._unitOfWork = new UnitOfWork();
-        this._unitOfWork.AssetsTemplateRepository().then(result => this._assetTemplateRepo = result);
+        this._unitOfWork.AssetsTemplateRepository().subscribe(result => this._assetTemplateRepo = result);
     };
 
     fetchAssetsTemplatesDB(id: Guid): Observable<AssetTemplate> {
 
-        return from(this._unitOfWork.AssetsTemplateRepository().then(result => result.getById(id)).then(result => {
-            if (!result) {
-                this.http.get('https://localhost/api/assettemplate')
-                    .pipe(map((response: Response) => {
-                        var assetTemplates = <AssetTemplate[]>response.json();
-
-                        assetTemplates.forEach((template) => console.log(template.id));
-
-                        assetTemplates.forEach((template) => {
-                            this._assetTemplateRepo.getById(template.id).then(foundRecord => {
-                                if (!foundRecord)
-                                    this._assetTemplateRepo.addRecord(template);
-                                else
-                                    this._assetTemplateRepo.updateRecord(template);
-                            });
-                        });
-
-                        return assetTemplates;
-                    })).subscribe((x) => x[0]);
-            } else {
-                return result;
-            }
-        }));
+        return new Observable((observer) => { 
+            this._unitOfWork.AssetsTemplateRepository().subscribe(res => res.getById(id).subscribe((result) => {
+            
+                observer.next(result);
+            }));
+        
+        });
     }
 
     fetchAssets(assetList: string[]): Observable<Asset[]> {

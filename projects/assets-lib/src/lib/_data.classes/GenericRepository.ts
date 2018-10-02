@@ -2,16 +2,15 @@ import { promise } from "protractor";
 import { PromiseState } from "q";
 import { Guid } from 'shared-comp-lib';
 import { Identity } from "../_models";
+import { Observable, Observer, observable } from "rxjs";
 
 export class GenericRepository<T extends Identity>  {
 
     constructor(private database: IDBDatabase,
         private objectStoreName: string) { }
-
-    getById(id: Guid): Promise<T> {
-
-        return new Promise((resolve, reject) => {
-
+    
+    getById(id: Guid): Observable<T> {
+        return new Observable((observer) => {
             var transaction: IDBTransaction = this.database.transaction(this.objectStoreName, "readonly");
 
             var store: IDBObjectStore = transaction.objectStore(this.objectStoreName);
@@ -21,18 +20,18 @@ export class GenericRepository<T extends Identity>  {
             request.onsuccess = function (event) {
                 console.log('making request : ' + id);
                 var req = event.target as IDBRequest;
-                resolve(req.result);
+                observer.next(req.result);
             };
 
             request.onerror = function (event) {
                 console.log(request.error.name);
-                reject(new Error('Error in getById: ' + request.error.message));
+                observer.error(new Error('Error in getById: ' + request.error.message));
             }
         });
     }
 
-    getByIds(ids: Guid[]): Promise<T[]> {
-        return new Promise((resolve, reject) => {
+    getByIds(ids: Guid[]): Observable<T[]> {
+        return new Observable((observer) => {
 
             var transaction: IDBTransaction = this.database.transaction(this.objectStoreName, "readonly");
 
@@ -50,19 +49,19 @@ export class GenericRepository<T extends Identity>  {
             transaction.onerror = function (event) {
                 console.log(transaction.error.name);
 
-                reject(new Error('Error in getById: ' + transaction.error.message));
+                observer.error(new Error('Error in getById: ' + transaction.error.message));
             }
 
             transaction.oncomplete = function (event) {
                 console.log('complete get by ids');
 
-                resolve(results);
+                observer.next(results);
             }
         });
     }
 
-    addRecord(record: T): Promise<boolean> {
-        return new Promise((resolve, reject) => {
+    addRecord(record: T): Observable<boolean> {
+        return new Observable((observer) => {
 
             var transaction: IDBTransaction = this.database.transaction([this.objectStoreName], "readwrite");
 
@@ -72,18 +71,18 @@ export class GenericRepository<T extends Identity>  {
 
             request.onerror = function (event) {
                 console.log("error : " + request.error.name);
-                reject(new Error('Error in addRecord: ' + request.error.message));
+                observer.error(new Error('Error in addRecord: ' + request.error.message));
             }
 
             request.onsuccess = function (event) {
                 console.log("saved asset");
-                resolve(true);
+                observer.next(true);
             }
         });
     }
 
-    updateRecord(record: T): Promise<boolean> {
-        return new Promise((resolve, reject) => {
+    updateRecord(record: T): Observable<boolean> {
+        return new Observable((observer) => {
             var transaction: IDBTransaction = this.database.transaction([this.objectStoreName], "readwrite");
 
             var store: IDBObjectStore = transaction.objectStore(this.objectStoreName);
@@ -92,23 +91,33 @@ export class GenericRepository<T extends Identity>  {
 
             request.onerror = function (event) {
                 console.log("error : " + request.error.name);
-                reject(new Error('Error in addRecord: ' + request.error.message));
+                observer.error(new Error('Error in addRecord: ' + request.error.message));
             }
 
             request.onsuccess = function (event) {
                 console.log("saved asset");
-                resolve(true);
+                observer.next(true);
             }
         });
     }
 
-    deleteRecordById(id: Guid): Promise<void> {
-        return new Promise((resolve, reject) => {
+    deleteRecordById(id: Guid): Observable<boolean> {
+        return new Observable((observer) => {
 
             var tx: IDBTransaction = this.database.transaction([this.objectStoreName], "readwrite");
             var store: IDBObjectStore = tx.objectStore(this.objectStoreName);
 
-            var requst = store.delete(id.toString());
+            var request = store.delete(id.toString());
+
+            request.onerror = function (event) {
+                observer.error(new Error('Error in delete Record: ' + request.error.message));
+            }
+
+            request.onsuccess = function (event) {
+                console.log("deleted asset: " + id.toString());
+                observer.next(true);
+            }
+
         });
     }
 
@@ -116,7 +125,7 @@ export class GenericRepository<T extends Identity>  {
         return this.deleteRecordById(record.id);
     }
 
-    findByIndex(indexName: string, lower, upper): Promise<T[]> {
+    findByIndex(indexName: string, lower, upper): Observable<T[]> {
 
         if (lower === '' && upper === '') { return; }
 
@@ -130,7 +139,7 @@ export class GenericRepository<T extends Identity>  {
             range = IDBKeyRange.lowerBound(lower);
         }
 
-        return new Promise((resolve, reject) => {
+        return new Observable((observer) => {
             var transaction: IDBTransaction = this.database.transaction([this.objectStoreName], "readonly");
             var store: IDBObjectStore = transaction.objectStore(this.objectStoreName);
             var index: IDBIndex = store.index(indexName);
@@ -152,13 +161,13 @@ export class GenericRepository<T extends Identity>  {
             transaction.onerror = function (event) {
                 console.log(transaction.error.name);
 
-                reject(new Error('Error in findByIndex: ' + transaction.error.message));
+                observer.error(new Error('Error in findByIndex: ' + transaction.error.message));
             }
 
             transaction.oncomplete = function (event) {
                 console.log('complete find by index');
 
-                resolve(foundRecords);
+                observer.next(foundRecords);
             }
         });
 
