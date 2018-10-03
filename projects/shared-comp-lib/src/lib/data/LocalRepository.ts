@@ -2,7 +2,7 @@ import { Guid } from '../utilities/Guid';
 import { Identity, IGenericRepository } from "../_models/index";
 import { Observable } from "rxjs";
 
-export class GenericRepository<T extends Identity> implements IGenericRepository<T> {
+export class LocalRepository<T extends Identity> implements IGenericRepository<T> {
 
     constructor(private database: IDBDatabase,
         private objectStoreName: string) { }
@@ -95,8 +95,8 @@ export class GenericRepository<T extends Identity> implements IGenericRepository
                 observer.error(new Error('Error in addRecord: ' + request.error.message));
             }
 
-            request.onsuccess = function (event) {
-                console.log("saved asset");
+            request.onsuccess = (event) => {
+                console.log("saved " + this.objectStoreName);
                 observer.next(true);
             }
         });

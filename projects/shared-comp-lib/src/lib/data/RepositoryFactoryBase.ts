@@ -1,4 +1,4 @@
-import { GenericRepository } from './GenericRepository';
+import { LocalRepository } from './LocalRepository';
 import { HttpRepository } from './HttpRepository';
 import { Observable } from 'rxjs';
 import { NorthpowerConfig } from "../northpower.config";
@@ -44,12 +44,12 @@ export abstract class RepositoryFactoryBase {
 
                 this.openDatabase(this.databaseName, this.dbVersion, this.upgradeDatabase).subscribe((result) => {
                     this.db = result;
-                    var repo = new GenericRepository<T>(this.db, objectStoreName);
+                    var repo = new LocalRepository<T>(this.db, objectStoreName);
                     observer.next(repo);
 
                 }));
         } else {
-            return new Observable((observer) => observer.next(new GenericRepository<T>(this.db, objectStoreName)));
+            return new Observable((observer) => observer.next(new LocalRepository<T>(this.db, objectStoreName)));
         }
     }
 
