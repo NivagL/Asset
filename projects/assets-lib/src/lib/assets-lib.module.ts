@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,9 +14,10 @@ import { AssetPropertyPipe } from './_pipes/assetProperty.pipe';
 import { DisplayPropertyValuePipe } from './_pipes/displayPropetyValue.pipe';
 import { AssetComponent } from './asset/asset.component';
 import { EditAssetPropertyDialog } from './_dialogs/editAssetProperty.dialog';
-import { SharedCompLibModule } from 'shared-comp-lib';
+import { SharedCompLibModule, NorthpowerConfig } from 'shared-comp-lib';
 
 import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
+
 
 @NgModule({
   imports: [
@@ -38,4 +39,20 @@ import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
     EditAssetPropertyDialog
   ]
 })
-export class AssetsLibModule { }
+export class AssetsLibModule { 
+  constructor (@Optional() @SkipSelf() parentModule: AssetsLibModule) {
+    if (parentModule) {
+      throw new Error(
+        'AssetsLibModule is already loaded. Import it in the AppModule only');
+    }
+  }
+
+  static forRoot(config: NorthpowerConfig): ModuleWithProviders {
+    return {
+      ngModule: AssetsLibModule,
+      providers: [
+        {provide: NorthpowerConfig, useValue: config }
+      ]
+    };
+  }
+}

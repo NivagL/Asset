@@ -21,7 +21,7 @@ export class AssetPropertiesComponent implements OnInit {
     console.log(this.asset.assetTypeId);
     this._assetService.fetchAssetTemplate(this.asset.assetTypeId).subscribe((result: AssetTemplate) => {
       this.assetTemplate = result;
-      console.log(result);
+      console.log("fetching asset templates : " + result);
     });
   }
 

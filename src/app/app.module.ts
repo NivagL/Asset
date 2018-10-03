@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule, Router, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-
+import { environment } from '../environments/environment';
 import { AssetsLibModule } from 'assets-lib';
-import { SharedCompLibModule } from 'shared-comp-lib';
+import { SharedCompLibModule, NorthpowerConfig, GlobalErrorHandler } from 'shared-comp-lib';
 import { SingleAssetComponent } from './single-asset/single-asset.component';
 import { MultipleAssetComponent } from './multiple-asset/multiple-asset.component';
 import { ImageEditorExampleComponent } from './image-editor-example/image-editor-example.component';
@@ -19,6 +19,13 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ]
 
+const config: NorthpowerConfig = {
+  env: environment,
+  baseUrl:environment.baseUrl,
+  test:"test string",
+  isOfflineFirst:true
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,10 +36,10 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    AssetsLibModule,
-    SharedCompLibModule
+    AssetsLibModule.forRoot(config),
+    SharedCompLibModule,
   ],
-  providers: [],
+  providers: [{provide:ErrorHandler, useClass:GlobalErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

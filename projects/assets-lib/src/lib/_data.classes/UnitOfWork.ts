@@ -1,37 +1,58 @@
 import { Injectable } from '@angular/core';
-import { Asset, AssetTemplate, Identity } from '../_models/index';
+import { Asset, AssetTemplate, Identity, IGenericRepository } from '../_models/index';
 import { GenericRepository } from './GenericRepository';
-import { resolve } from 'dns';
-import { Observable, observable } from 'rxjs';
+import { HttpRepository } from './HttpRepository';
+import { Observable } from 'rxjs';
+import { NorthpowerConfig } from "shared-comp-lib";
+import { Http } from '@angular/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UnitOfWork {
 
-    private assetRepository: GenericRepository<Asset> = null;
-    private assetTemplateRepository: GenericRepository<AssetTemplate> = null;
+    private assetRepository: IGenericRepository<Asset> = null;
+    private assetTemplateRepository: IGenericRepository<AssetTemplate> = null;
 
     public db: IDBDatabase = null;
 
     databaseName: string = "myDb";
     dbVersion: number = 2;
 
-    constructor() {
-      //  this.openDatabase("myDB", 1, this.upgradeDatabase).subscribe((result) => this.db = result);
+    constructor(private config: NorthpowerConfig, private http: Http) {
+
     }
 
-    AssetsRepository(): Observable<GenericRepository<Asset>> {
-        
-        return this.fetchRepository<Asset>(this.assetRepository, "assets");
+    AssetsRepository(): Observable<IGenericRepository<Asset>> {
+
+        return this.fetchRepository<Asset>(this.assetRepository, "assets", "asset");
     }
 
-    AssetsTemplateRepository(): Observable<GenericRepository<AssetTemplate>> {
+    AssetsTemplateRepository(): Observable<IGenericRepository<AssetTemplate>> {
 
-        return this.fetchRepository<AssetTemplate>(this.assetTemplateRepository, "assetTemplates");
+        return this.fetchRepository<AssetTemplate>(this.assetTemplateRepository, "assetTemplates", "assettemplate");
     }
 
-    fetchRepository<T extends Identity>(repo: GenericRepository<T>, objectStoreName: string): Observable<GenericRepository<T>> {
+    fetchRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string): Observable<IGenericRepository<T>> {
+        if (this.config.isOfflineFirst) {
+            return this.fetchLocalRepository(repo, objectStoreName);
+        } else {
+            return this.fetchOnlineRepository(repo, objectStoreName, url);
+        }
+    }
+
+    fetchOnlineRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string): Observable<IGenericRepository<T>> {
+        if (repo) {
+            return new Observable((observer) => observer.next(repo));
+        } else {
+            return new Observable((observer) => {
+                var repo = new HttpRepository<T>(objectStoreName, url, this.config, this.http);
+                observer.next(repo);
+            });
+        }
+    }
+
+    fetchLocalRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string): Observable<IGenericRepository<T>> {
 
         if (repo) {
             return new Observable((observer) => observer.next(repo));

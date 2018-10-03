@@ -5,3 +5,5 @@
 export * from './lib/shared-comp-lib.module';
 export * from  './lib/image-editor/image-editor.component';
 export * from './lib/utilities/Guid';
+export * from './lib/northpower.config';
+export * from './lib/globalErrorHandler';
