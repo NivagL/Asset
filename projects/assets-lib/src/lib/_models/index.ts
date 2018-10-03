@@ -4,5 +4,4 @@ export * from './assetProperty';
 export * from './assetTemplate';
 export * from './notification';
 export * from './assetTemplateProperty';
-export * from './identity';
-export * from './IGenericRepository';
+

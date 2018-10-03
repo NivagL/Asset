@@ -1,4 +1,5 @@
-import { Guid, NorthpowerConfig } from 'shared-comp-lib';
+import { NorthpowerConfig } from '../northpower.config';
+import { Guid } from '../utilities/Guid';
 import { Identity, IGenericRepository } from "../_models";
 import { Observable, empty } from "rxjs";
 import { map } from 'rxjs/operators';

@@ -1,5 +1,5 @@
-import { Guid } from 'shared-comp-lib';
-import { Identity, IGenericRepository } from "../_models";
+import { Guid } from '../utilities/Guid';
+import { Identity, IGenericRepository } from "../_models/index";
 import { Observable } from "rxjs";
 
 export class GenericRepository<T extends Identity> implements IGenericRepository<T> {
@@ -134,8 +134,7 @@ export class GenericRepository<T extends Identity> implements IGenericRepository
                 observer.error(new Error('Error in delete Record: ' + request.error.message));
             }
 
-            request.onsuccess = function (event) {
-                console.log("deleted asset: " + id.toString());
+            request.onsuccess = function (event) {                
                 observer.next(true);
             }
 

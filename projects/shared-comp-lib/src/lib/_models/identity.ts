@@ -1,4 +1,4 @@
-import { Guid } from 'shared-comp-lib';
+import { Guid } from '../utilities/Guid';
 
 export interface Identity {
     id:Guid;

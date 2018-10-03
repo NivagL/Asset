@@ -1,6 +1,5 @@
 import { DataTypeEnum } from './assetEnums';
-import { Identity } from './index';
-import { Guid } from 'shared-comp-lib/public_api';
+import { Guid, Identity } from 'shared-comp-lib';
 
 export class AssetTemplateProperty implements Identity {
     id:Guid;

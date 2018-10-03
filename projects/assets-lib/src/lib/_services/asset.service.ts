@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { Asset, AssetTypeEnum, AssetTemplate, AssetProperty, IGenericRepository } from '../_models/index';
-import { UnitOfWork } from '../_data.classes/UnitOfWork';
-import { Guid, NorthpowerConfig } from 'shared-comp-lib';
+import { Asset, AssetTypeEnum, AssetTemplate, AssetProperty } from '../_models/index';
+import { AssetRepositoryFactory } from '../_data/AssetRepositoryFactory';
+import { Guid, NorthpowerConfig, IGenericRepository } from 'shared-comp-lib';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AssetService {
 
     assetTemplates: AssetTemplate[] = null;
 
-    constructor(private http: Http, private _unitOfWork: UnitOfWork, config: NorthpowerConfig) {
+    constructor(private http: Http, private _assetFactory: AssetRepositoryFactory, private config: NorthpowerConfig) {
 
         console.log('is offline first = ' + config.isOfflineFirst);
 
@@ -32,7 +32,7 @@ export class AssetService {
                 this.http.get('assets/data/assets.json')
                     .pipe(map((response: Response) => {
                         var assets = <Asset[]>response.json();
-                        this._unitOfWork.AssetsRepository().subscribe(result => {
+                        this._assetFactory.AssetsRepository().subscribe(result => {
                             assets.forEach(a => {
                                 a.id = Guid.newGuid(); 
                                 result.addRecord(a).subscribe();
@@ -47,7 +47,7 @@ export class AssetService {
     fetchAssets(assetList: string[]): Observable<Asset[]> {
         // for test purposes until more data available get all from service
         return new Observable((observer) => {
-            this._unitOfWork.AssetsRepository().subscribe(result => result.getAll().subscribe((result) => observer.next(result)));
+            this._assetFactory.AssetsRepository().subscribe(result => result.getAll().subscribe((result) => observer.next(result)));
         });
     }
 
@@ -57,7 +57,7 @@ export class AssetService {
             if (this.assetTemplates) {
                 observer.next(this.assetTemplates);
             } else {
-                this._unitOfWork.AssetsTemplateRepository().subscribe(res =>
+                this._assetFactory.AssetsTemplateRepository().subscribe(res =>
                     res.getAll().subscribe((result) => {
                         this.assetTemplates = result;
                         observer.next(result);

@@ -1,5 +1,5 @@
-import { AssetProperty, Notification, AssetTypeEnum, AssetTemplate, Identity } from './index';
-import { Guid } from 'shared-comp-lib';
+import { AssetProperty, Notification, AssetTypeEnum, AssetTemplate } from './index';
+import { Guid, Identity } from 'shared-comp-lib';
 
 export class Asset implements Identity {
 

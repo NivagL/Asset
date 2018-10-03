@@ -1,5 +1,5 @@
-import { Guid } from 'shared-comp-lib';
-import { Identity } from '../_models';
+import { Guid } from '../utilities/Guid';
+import { Identity } from '../_models/identity';
 import { Observable } from 'rxjs';
 
 export interface IGenericRepository<T extends Identity> {

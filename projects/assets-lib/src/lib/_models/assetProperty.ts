@@ -1,5 +1,5 @@
-import { AssetTemplateProperty, Identity } from '../_models/index';
-import { Guid } from 'shared-comp-lib';
+import { AssetTemplateProperty } from '../_models/index';
+import { Guid, Identity } from 'shared-comp-lib';
 
 export class AssetProperty implements Identity {
     id: Guid;
