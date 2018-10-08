@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import {
   MatExpansionModule, MatDialogModule, MatTabsModule, MatInputModule,
   MatButtonModule, MatAutocompleteModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule
@@ -17,16 +17,15 @@ import { EditAssetPropertyDialog } from './_dialogs/editAssetProperty.dialog';
 import { SharedCompLibModule, NorthpowerConfig } from 'shared-comp-lib';
 
 import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
-
+import { ApiLibModule  } from 'api-lib';
 
 @NgModule({
-  imports: [
-    HttpModule,
+  imports: [    
     BrowserAnimationsModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule, ReactiveFormsModule, HttpClientModule,
     MatExpansionModule, MatTabsModule, MatDialogModule, MatButtonModule, MatAutocompleteModule, MatInputModule,
     MatNativeDateModule, MatDatepickerModule, MatCheckboxModule,
-    SharedCompLibModule
+    SharedCompLibModule, ApiLibModule
   ],
   declarations: [
     AssetComponent, AssetAccordionComponent, AssetPropertiesComponent,

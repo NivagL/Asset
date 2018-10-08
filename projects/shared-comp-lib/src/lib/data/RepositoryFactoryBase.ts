@@ -16,20 +16,20 @@ export abstract class RepositoryFactoryBase {
         this.databaseName = dbName;
     }
 
-    protected fetchRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string): Observable<IGenericRepository<T>> {
+    protected fetchRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string, service): Observable<IGenericRepository<T>> {
         if (this.config.isOfflineFirst) {
             return this.fetchLocalRepository(repo, objectStoreName);
         } else {
-            return this.fetchOnlineRepository(repo, objectStoreName, url);
+            return this.fetchOnlineRepository(repo, objectStoreName, url, service);
         }
     }
 
-    protected fetchOnlineRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string): Observable<IGenericRepository<T>> {
+    protected fetchOnlineRepository<T extends Identity>(repo: IGenericRepository<T>, objectStoreName: string, url: string, service): Observable<IGenericRepository<T>> {
         if (repo) {
             return new Observable((observer) => observer.next(repo));
         } else {
             return new Observable((observer) => {
-                var repo = new HttpRepository<T>(objectStoreName, url, this.config, this.http);
+                var repo = new HttpRepository<T>(objectStoreName, url, this.config, this.http, service);
                 observer.next(repo);
             });
         }

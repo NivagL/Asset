@@ -10,4 +10,5 @@ export interface IGenericRepository<T extends Identity> {
     updateRecord(record:T):Observable<boolean>;
     deleteRecordById(id:Guid):Observable<boolean>;
     findByIndex(indexName: string, lower, upper): Observable<T[]>;
+    search(searchObject:T);
 }

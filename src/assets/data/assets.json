@@ -1,5 +1,6 @@
 [
     {
+        "id": {"value":"9996ec54-3afc-4a7b-aaea-0a5c4315244c"},
         "assetType":0,
         "subNo": "C-1032",
         "label": "C1032",
@@ -13,24 +14,24 @@
         "equipmentId": "2",
         "properties": [
             {
-                "id": 1,
+                "id": {"value":"1246ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "value": "my manufacturer",
-                "templatePropertyId": 1
+                "templatePropertyId": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315244c"}
             },
             {
-                "id": 2,
+                "id": {"value":"4216ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "value": 2.34,
-                "templatePropertyId": 2
+                "templatePropertyId": {"value":"680c26ff-205f-44ea-a0a5-0d2d74249916"}
             },
             {
-                "id": 3,
+                "id": {"value":"6546ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "value": "2018-04-23T13:25:43.511Z",
-                "templatePropertyId": 5
+                "templatePropertyId": {"value":"111c26ff-205f-44ea-a0a5-0d2d74249916"}
             },
             {
-                "id": 4,
+                "id": {"value":"8886ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "value": "true",
-                "templatePropertyId": 6
+                "templatePropertyId": {"value":"222c26ff-205f-44ea-a0a5-0d2d74249916"}
             }
         ],
         "notifications": [
@@ -55,17 +56,17 @@
             {
                 "id": 1,
                 "value": "my manufacturer",
-                "templatePropertyId": 1
+                "templatePropertyId": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315244c"}
             },
             {
                 "id": 2,
                 "value": 16,
-                "templatePropertyId": 3
+                "templatePropertyId": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315255c"}
             },
             {
                 "id": 3,
                 "value": 2.34,
-                "templatePropertyId": 4
+                "templatePropertyId": {"value":"333ec54-3afc-4a7b-aaea-0a5c4315244c"}
             }
         ],
         "notifications": [

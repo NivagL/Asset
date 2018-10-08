@@ -29,6 +29,12 @@
       ],
       "shared-comp-lib/*": [
         "dist/shared-comp-lib/*"
+      ],
+      "api-lib": [
+        "dist/api-lib"
+      ],
+      "api-lib/*": [
+        "dist/api-lib/*"
       ]
     }
   }

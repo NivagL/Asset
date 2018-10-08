@@ -19,7 +19,8 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
                 
                 console.log('success request : ' + id);
                 var req = event.target as IDBRequest;
-                observer.next(req.result);                
+                observer.next(req.result);    
+                observer.complete();            
             };
 
             request.onerror = function (event) {
@@ -55,6 +56,7 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
                 console.log('complete get by ids');
 
                 observer.next(results);
+                observer.complete();            
             }
         });
     }
@@ -71,7 +73,8 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
                 
                 console.log('success request');
                 var req = event.target as IDBRequest;
-                observer.next(req.result);                
+                observer.next(req.result);      
+                observer.complete();                      
             };
 
             request.onerror = function (event) {
@@ -98,6 +101,7 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
             request.onsuccess = (event) => {
                 console.log("saved " + this.objectStoreName);
                 observer.next(true);
+                observer.complete();            
             }
         });
     }
@@ -118,6 +122,7 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
             request.onsuccess = function (event) {
                 console.log("saved asset");
                 observer.next(true);
+                observer.complete();            
             }
         });
     }
@@ -136,6 +141,7 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
 
             request.onsuccess = function (event) {                
                 observer.next(true);
+                observer.complete();            
             }
 
         });
@@ -188,9 +194,11 @@ export class LocalRepository<T extends Identity> implements IGenericRepository<T
                 console.log('complete find by index');
 
                 observer.next(foundRecords);
+                observer.complete();            
             }
         });
-
-
+    }
+    search(searchObject:T){
+        
     }
 }

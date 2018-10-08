@@ -4,31 +4,31 @@
         "typeName": 0, 
         "properties": [
             {
-                "id": 2,
+                "id": {"value":"680c26ff-205f-44ea-a0a5-0d2d74249916"},
                 "name": "Height",
                 "unit": "",
                 "type": 2
             },
             {
-                "id": 1,
+                "id": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "name": "Manufacturer",
                 "unit": "",
                 "type": 0
             },
             {
-                "id": 5,
+                "id": {"value":"111c26ff-205f-44ea-a0a5-0d2d74249916"},
                 "name": "Some Date Prop",
                 "unit": "",
                 "type": 4
             },
             {
-                "id": 6,
+                "id": {"value":"222c26ff-205f-44ea-a0a5-0d2d74249916"},
                 "name": "Some Bool Prop",
                 "unit": "",
                 "type": 3
             },
             {
-                "id": 7,
+                "id": {"value":"333c26ff-205f-44ea-a0a5-0d2d74249916"},
                 "name": "another date Prop",
                 "unit": "",
                 "type": 4
@@ -40,19 +40,19 @@
         "typeName": 1,
         "properties": [
             {
-                "id": 1,
+                "id": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "name": "Manufacturer",
                 "unit": "",
                 "type": 0
             },
             {
-                "id": 3,
+                "id": {"value":"333ec54-3afc-4a7b-aaea-0a5c4315244c"},
                 "name": "Ohms",
                 "unit": "",
                 "type": 1
             },
             {
-                "id": 4,
+                "id": {"value":"1116ec54-3afc-4a7b-aaea-0a5c4315255c"},
                 "name": "Special",
                 "unit": "",
                 "type": 1

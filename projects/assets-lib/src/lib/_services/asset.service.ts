@@ -41,6 +41,21 @@ export class AssetService {
                     })).subscribe();
             }
         });
+
+        this.fetchAssetTemplates().subscribe(result => {
+            if (!result || result.length == 0) {
+                this.http.get('assets/data/assetTemplates.json')
+                .pipe(map((response:Response) => {
+                    var assettemplatess = <AssetTemplate[]>response.json();
+                    this._assetFactory.AssetsTemplateRepository().subscribe(result => {
+                        assettemplatess.forEach(a => {
+                           // a.id = Guid.newGuid();
+                            result.addRecord(a).subscribe();
+                        });
+                    });
+                })).subscribe();
+            }
+        });
     }
 
 
