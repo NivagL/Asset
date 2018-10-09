@@ -10,7 +10,8 @@ import { SharedCompLibModule, NorthpowerConfig, GlobalErrorHandler } from 'share
 import { SingleAssetComponent } from './single-asset/single-asset.component';
 import { MultipleAssetComponent } from './multiple-asset/multiple-asset.component';
 import { ImageEditorExampleComponent } from './image-editor-example/image-editor-example.component';
-import { ApiLibModule, BASE_PATH } from 'api-lib';
+import { BASE_PATH } from '@saille/northpower.asset.service';
+
 
 const appRoutes: Routes = [
   { path: 'home', component: AppComponent },
@@ -39,8 +40,7 @@ const config: NorthpowerConfig = {
     HttpClientModule, HttpModule,
     RouterModule.forRoot(appRoutes),
     AssetsLibModule.forRoot(config),
-    SharedCompLibModule,
-    ApiLibModule
+    SharedCompLibModule    
   ],
   providers: [{provide:ErrorHandler, useClass:GlobalErrorHandler}, {provide:BASE_PATH, useValue:"https://asset-dv1.northpowerb2b.com"}
   

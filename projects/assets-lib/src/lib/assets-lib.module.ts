@@ -17,7 +17,7 @@ import { EditAssetPropertyDialog } from './_dialogs/editAssetProperty.dialog';
 import { SharedCompLibModule, NorthpowerConfig } from 'shared-comp-lib';
 
 import { CreateAssetDialog } from './_dialogs/createAsset.dialog';
-import { ApiLibModule  } from 'api-lib';
+import { ApiModule } from '@saille/northpower.asset.service';
 
 @NgModule({
   imports: [    
@@ -25,17 +25,17 @@ import { ApiLibModule  } from 'api-lib';
     FormsModule, ReactiveFormsModule, HttpClientModule,
     MatExpansionModule, MatTabsModule, MatDialogModule, MatButtonModule, MatAutocompleteModule, MatInputModule,
     MatNativeDateModule, MatDatepickerModule, MatCheckboxModule,
-    SharedCompLibModule, ApiLibModule
+    SharedCompLibModule, ApiModule
   ],
   declarations: [
     AssetComponent, AssetAccordionComponent, AssetPropertiesComponent,
     AssetNotificationsComponent, AssetPropertyPipe, DisplayPropertyValuePipe,
     CreateAssetDialog, EditAssetPropertyDialog
   ],
-  exports: [AssetComponent, AssetAccordionComponent],
+  exports: [AssetComponent, AssetAccordionComponent, ApiModule],
   entryComponents: [
     CreateAssetDialog,
-    EditAssetPropertyDialog
+    EditAssetPropertyDialog    
   ]
 })
 export class AssetsLibModule { 

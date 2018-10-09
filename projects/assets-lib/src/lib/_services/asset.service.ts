@@ -5,7 +5,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Asset, AssetTypeEnum, AssetTemplate, AssetProperty } from '../_models/index';
 import { AssetRepositoryFactory } from '../_data/AssetRepositoryFactory';
-import { Guid, NorthpowerConfig, IGenericRepository } from 'shared-comp-lib';
+import { Guid, NorthpowerConfig } from 'shared-comp-lib';
 
 
 @Injectable({
@@ -24,6 +24,7 @@ export class AssetService {
             console.log('adding dummy data');
             this.buildDummyDataForOffline();
         }
+
     };
 
     buildDummyDataForOffline() {

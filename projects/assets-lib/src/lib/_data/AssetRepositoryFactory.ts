@@ -3,7 +3,7 @@ import { Asset, AssetTemplate } from '../_models/index';
 import { Observable } from 'rxjs';
 import { NorthpowerConfig, IGenericRepository, RepositoryFactoryBase } from "shared-comp-lib";
 import { Http } from '@angular/http';
-import { AssetService, AssetTemplateService } from 'api-lib';
+import { AssetService, AssetTemplateService } from '@saille/northpower.asset.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +16,7 @@ export class AssetRepositoryFactory extends RepositoryFactoryBase {
     constructor(protected config: NorthpowerConfig, protected http: Http,
         protected assetService:AssetService, protected _assetTemplateService: AssetTemplateService) {
         super(config, http, "assetsDB");
+     
     }
 
     AssetsRepository(): Observable<IGenericRepository<Asset>> {
@@ -23,7 +24,6 @@ export class AssetRepositoryFactory extends RepositoryFactoryBase {
     }
 
     AssetsTemplateRepository(): Observable<IGenericRepository<AssetTemplate>> {
-
         return this.fetchRepository<AssetTemplate>(this.assetTemplateRepository, "assetTemplates", "assetTemplate", this._assetTemplateService);
     }
 
