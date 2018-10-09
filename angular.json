@@ -191,41 +191,6 @@
           }
         }
       }
-    },
-    "api-lib": {
-      "root": "projects/api-lib",
-      "sourceRoot": "projects/api-lib/src",
-      "projectType": "library",
-      "prefix": "api",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/api-lib/tsconfig.lib.json",
-            "project": "projects/api-lib/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/api-lib/src/test.ts",
-            "tsConfig": "projects/api-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/api-lib/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/api-lib/tsconfig.lib.json",
-              "projects/api-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
     }
   },
   "defaultProject": "assets-lib-app"
